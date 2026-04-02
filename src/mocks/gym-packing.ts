@@ -1,0 +1,63 @@
+import type { PackingScenario } from '@/src/types';
+
+export const gymPackingScenarioMock: PackingScenario = {
+  id: 'gym-session',
+  name: '去健身',
+  description: '健身前常用的随身和换洗物品清单。',
+  items: [
+    {
+      id: 'gym-shoes',
+      name: '运动鞋',
+      note: '进馆前确认穿对鞋。',
+      category: '装备',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'gym-clothes',
+      name: '运动衣物',
+      note: '包括上衣和短裤。',
+      category: '衣物',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'gym-water',
+      name: '水杯',
+      note: '训练中补水。',
+      category: '随身物品',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'gym-towel',
+      name: '毛巾',
+      note: '流汗时会用到。',
+      category: '护理',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+    {
+      id: 'gym-headphones',
+      name: '耳机',
+      note: '训练时听音乐。',
+      category: '电子设备',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+    {
+      id: 'gym-locker',
+      name: '储物柜手环 / 卡',
+      note: '如果健身房需要的话。',
+      category: '证件',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+  ],
+};

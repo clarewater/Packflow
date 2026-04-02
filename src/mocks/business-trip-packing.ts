@@ -1,0 +1,63 @@
+import type { PackingScenario } from '@/src/types';
+
+export const businessTripPackingScenarioMock: PackingScenario = {
+  id: 'business-trip',
+  name: '出差',
+  description: '工作出行时兼顾正式场合和移动办公的清单。',
+  items: [
+    {
+      id: 'business-laptop',
+      name: '电脑',
+      note: '核心办公设备。',
+      category: '办公设备',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'business-charger',
+      name: '电脑充电器',
+      note: '不要只带电脑忘记充电器。',
+      category: '办公设备',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'business-id-card',
+      name: '身份证',
+      note: '交通与入住都要用。',
+      category: '证件',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'business-clothes',
+      name: '正式衣物',
+      note: '根据会议安排准备。',
+      category: '衣物',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'business-notebook',
+      name: '笔记本和笔',
+      note: '记录会议信息。',
+      category: '办公用品',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+    {
+      id: 'business-name-card',
+      name: '名片',
+      note: '线下交流时备用。',
+      category: '办公用品',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+  ],
+};

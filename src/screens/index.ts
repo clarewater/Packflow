@@ -1,1 +1,1 @@
-export * from './single-scenario-screen';
+export * from './scenario-screen';

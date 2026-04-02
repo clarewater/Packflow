@@ -1,0 +1,63 @@
+import type { PackingScenario } from '@/src/types';
+
+export const travelPackingScenarioMock: PackingScenario = {
+  id: 'short-trip',
+  name: '短途旅行',
+  description: '两三天短途出行时常见的必带清单。',
+  items: [
+    {
+      id: 'travel-id-card',
+      name: '身份证',
+      note: '乘车、入住都需要。',
+      category: '证件',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'travel-tickets',
+      name: '车票 / 机票信息',
+      note: '提前确认行程。',
+      category: '证件',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'travel-charger',
+      name: '充电器',
+      note: '手机和其他设备使用。',
+      category: '电子设备',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'travel-clothes',
+      name: '换洗衣物',
+      note: '按天数准备。',
+      category: '衣物',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'travel-toiletries',
+      name: '洗漱用品',
+      note: '牙刷、牙膏、护肤品。',
+      category: '洗护',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+    {
+      id: 'travel-umbrella',
+      name: '折叠伞',
+      note: '天气不稳时带上。',
+      category: '随身物品',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+  ],
+};

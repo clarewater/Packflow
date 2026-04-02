@@ -1,0 +1,63 @@
+import type { PackingScenario } from '@/src/types';
+
+export const datePackingScenarioMock: PackingScenario = {
+  id: 'date-night',
+  name: '去约会',
+  description: '约会前需要确认的随身小物，避免临出门手忙脚乱。',
+  items: [
+    {
+      id: 'date-phone',
+      name: '手机',
+      note: '保持联络和导航。',
+      category: '电子设备',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'date-wallet',
+      name: '钱包',
+      note: '带上银行卡或少量现金。',
+      category: '随身物品',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'date-keys',
+      name: '钥匙',
+      note: '回家别进不去门。',
+      category: '随身物品',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'date-perfume',
+      name: '香水小样',
+      note: '出门前补一下气味状态。',
+      category: '护理',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+    {
+      id: 'date-mint',
+      name: '口香糖',
+      note: '饭后更从容。',
+      category: '护理',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+    {
+      id: 'date-power-bank',
+      name: '充电宝',
+      note: '避免手机中途没电。',
+      category: '电子设备',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+  ],
+};

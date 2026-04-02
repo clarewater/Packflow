@@ -1,5 +1,5 @@
-import { SingleScenarioScreen } from '@/src/screens';
+import { ScenarioScreen } from '@/src/screens';
 
 export function AppRoot() {
-  return <SingleScenarioScreen />;
+  return <ScenarioScreen />;
 }
