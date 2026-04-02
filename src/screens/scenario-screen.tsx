@@ -9,11 +9,11 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import {
   Gesture,
   GestureDetector,
 } from 'react-native-gesture-handler';
-import * as Animatable from 'react-native-animatable';
 import Reanimated, {
   LinearTransition,
   runOnJS,
@@ -263,17 +263,17 @@ export function ScenarioScreen() {
           easing="ease-out-cubic"
           useNativeDriver
         >
-          <AnimatedPressable
-          style={({ pressed }) => [
-            styles.addButton,
-            pressed && styles.addButtonPressed,
-          ]}
-          onPress={handleAddItem}
-          accessibilityRole="button"
-          accessibilityLabel="Add item"
-        >
-          <Text style={styles.addButtonText}>+</Text>
-          </AnimatedPressable>
+          <Pressable
+            style={({ pressed }) => [
+              styles.addButton,
+              pressed && styles.addButtonPressed,
+            ]}
+            onPress={handleAddItem}
+            accessibilityRole="button"
+            accessibilityLabel="Add item"
+          >
+            <Text style={styles.addButtonText}>+</Text>
+          </Pressable>
         </Animatable.View>
       </Animatable.View>
 
@@ -369,29 +369,28 @@ function ScenarioChip({
 
   return (
     <GestureDetector gesture={panGesture}>
-      <AnimatedPressable
-        style={({ pressed }) => [
-          styles.scenarioChip,
-          isActive && styles.scenarioChipActive,
-          animatedStyle,
-          pressed && styles.scenarioChipPressed,
-        ]}
-        onPress={onPress}
-      >
-        <Text
-          style={[
-            styles.scenarioChipText,
-            isActive && styles.scenarioChipTextActive,
+      <Reanimated.View style={animatedStyle}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.scenarioChip,
+            isActive && styles.scenarioChipActive,
+            pressed && styles.scenarioChipPressed,
           ]}
+          onPress={onPress}
         >
-          {getScenarioIcon(scenario.id)} {scenario.name}
-        </Text>
-      </AnimatedPressable>
+          <Text
+            style={[
+              styles.scenarioChipText,
+              isActive && styles.scenarioChipTextActive,
+            ]}
+          >
+            {getScenarioIcon(scenario.id)} {scenario.name}
+          </Text>
+        </Pressable>
+      </Reanimated.View>
     </GestureDetector>
   );
 }
-
-const AnimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 function getScenarioIcon(scenarioId: string) {
   switch (scenarioId) {
@@ -416,6 +415,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f4f2ee',
   },
   content: {
+    flexGrow: 1,
     paddingHorizontal: 28,
     paddingTop: 74,
     paddingBottom: 52,
@@ -464,40 +464,43 @@ const styles = StyleSheet.create({
   },
   scenarioList: {
     paddingBottom: 10,
-    gap: 10,
+    gap: 14,
   },
   scenarioChip: {
-    minWidth: 88,
-    height: 38,
+    minWidth: 92,
+    height: 40,
     paddingHorizontal: 16,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#faf8f4',
+    backgroundColor: '#fffdfa',
     borderWidth: 1,
-    borderColor: '#ece8e1',
-    shadowColor: '#c9c1b6',
-    shadowOpacity: 0.06,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 1,
+    borderColor: '#d8d2c8',
+    shadowColor: '#cec6bb',
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 },
+    elevation: 0.5,
   },
   scenarioChipActive: {
-    backgroundColor: '#17233b',
-    borderColor: '#17233b',
-    shadowColor: '#17233b',
-    shadowOpacity: 0.18,
+    backgroundColor: '#101c33',
+    borderColor: '#101c33',
+    shadowColor: '#101c33',
+    shadowOpacity: 0.24,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 2,
   },
   scenarioChipText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#9aa0aa',
+    color: '#7b818d',
   },
   scenarioChipPressed: {
     opacity: 0.82,
   },
   scenarioChipTextActive: {
-    color: '#f8f7f2',
+    color: '#ffffff',
   },
   addScenarioRow: {
     flexDirection: 'row',

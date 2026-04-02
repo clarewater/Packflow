@@ -6,8 +6,8 @@ import { AppRoot } from './src/app';
 
 export default function App() {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: '#f4f2ee' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#f4f2ee' }}>
         <StatusBar style="dark" />
         <AppRoot />
       </SafeAreaView>
