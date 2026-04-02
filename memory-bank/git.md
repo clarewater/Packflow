@@ -16,3 +16,7 @@ feat(miniprogram): 增加了小程序模板消息相关功能
 - chore - 构建过程或辅助工具的变动
 - revert - 回退
 - build - 打包
+
+# 分支说明
+
+- `feature/single-scenario-items`：用于完成单个场景下需要携带物品的功能开发
