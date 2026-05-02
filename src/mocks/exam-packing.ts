@@ -1,0 +1,63 @@
+import type { PackingScenario } from '@/src/types';
+
+export const examPackingScenarioMock: PackingScenario = {
+  id: 'exam',
+  name: '考试',
+  description: '考试当天需要提前确认的证件、穿着和补给清单。',
+  items: [
+    {
+      id: 'exam-admission-ticket',
+      name: '准考证',
+      note: '进入考场前重点确认。',
+      category: '证件',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'exam-id-card',
+      name: '身份证',
+      note: '和准考证一起放在最容易拿的位置。',
+      category: '证件',
+      quantity: 1,
+      isRequired: true,
+      isPacked: false,
+    },
+    {
+      id: 'exam-hoodie',
+      name: '简单卫衣',
+      note: '考场温度不稳定时更好调整。',
+      category: '衣物',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+    {
+      id: 'exam-snacks',
+      name: '小零食',
+      note: '考试间隙补充能量。',
+      category: '食物',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+    {
+      id: 'exam-sneakers',
+      name: '运动鞋',
+      note: '通勤和长时间等待更舒服。',
+      category: '衣物',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+    {
+      id: 'exam-power-bank',
+      name: '充电宝',
+      note: '避免路上手机没电影响导航和联系。',
+      category: '电子设备',
+      quantity: 1,
+      isRequired: false,
+      isPacked: false,
+    },
+  ],
+};

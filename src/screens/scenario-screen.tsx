@@ -1,5 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FlatList,
   Pressable,
@@ -28,6 +29,8 @@ import { packingScenarioMocks } from '@/src/mocks';
 import type { PackingItem, PackingScenario } from '@/src/types';
 
 const INITIAL_SCENARIOS = packingScenarioMocks;
+const SCENARIOS_STORAGE_KEY = 'packflow.scenarios';
+const SELECTED_SCENARIO_STORAGE_KEY = 'packflow.selectedScenarioId';
 const listItemTransition = LinearTransition.springify()
   .damping(18)
   .stiffness(180);
@@ -37,6 +40,7 @@ export function ScenarioScreen() {
   const [selectedScenarioId, setSelectedScenarioId] = useState(
     INITIAL_SCENARIOS[0]?.id ?? ''
   );
+  const [hasHydratedStorage, setHasHydratedStorage] = useState(false);
   const [draftName, setDraftName] = useState('');
   const [draftScenarioName, setDraftScenarioName] = useState('');
   const [isAddingScenario, setIsAddingScenario] = useState(false);
@@ -45,6 +49,75 @@ export function ScenarioScreen() {
     scenarios.find((scenario) => scenario.id === selectedScenarioId) ??
     scenarios[0];
   const items = selectedScenario?.items ?? [];
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const hydrateSavedState = async () => {
+      try {
+        const [savedScenariosJson, savedSelectedScenarioId] =
+          await Promise.all([
+            AsyncStorage.getItem(SCENARIOS_STORAGE_KEY),
+            AsyncStorage.getItem(SELECTED_SCENARIO_STORAGE_KEY),
+          ]);
+
+        if (!isMounted) {
+          return;
+        }
+
+        const savedScenarios = parseSavedScenarios(savedScenariosJson);
+
+        if (savedScenarios) {
+          setScenarios(savedScenarios);
+
+          const hasSavedSelectedScenario =
+            typeof savedSelectedScenarioId === 'string' &&
+            savedScenarios.some(
+              (scenario) => scenario.id === savedSelectedScenarioId
+            );
+          setSelectedScenarioId(
+            hasSavedSelectedScenario
+              ? savedSelectedScenarioId
+              : savedScenarios[0]?.id ?? ''
+          );
+        }
+      } catch (error) {
+        console.warn('Failed to load saved packing scenarios.', error);
+      } finally {
+        if (isMounted) {
+          setHasHydratedStorage(true);
+        }
+      }
+    };
+
+    hydrateSavedState();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!hasHydratedStorage) {
+      return;
+    }
+
+    const persistState = async () => {
+      try {
+        await Promise.all([
+          AsyncStorage.setItem(SCENARIOS_STORAGE_KEY, JSON.stringify(scenarios)),
+          AsyncStorage.setItem(
+            SELECTED_SCENARIO_STORAGE_KEY,
+            selectedScenario?.id ?? ''
+          ),
+        ]);
+      } catch (error) {
+        console.warn('Failed to save packing scenarios.', error);
+      }
+    };
+
+    persistState();
+  }, [hasHydratedStorage, scenarios, selectedScenario?.id]);
 
   const handleToggleItem = (itemId: string) => {
     setScenarios((currentScenarios) =>
@@ -392,18 +465,69 @@ function ScenarioChip({
   );
 }
 
+function parseSavedScenarios(savedScenariosJson: string | null) {
+  if (!savedScenariosJson) {
+    return null;
+  }
+
+  try {
+    const parsedValue: unknown = JSON.parse(savedScenariosJson);
+
+    if (!Array.isArray(parsedValue) || parsedValue.length === 0) {
+      return null;
+    }
+
+    const hasValidScenarios = parsedValue.every(isPackingScenario);
+    return hasValidScenarios ? parsedValue : null;
+  } catch {
+    return null;
+  }
+}
+
+function isPackingScenario(value: unknown): value is PackingScenario {
+  if (!value || typeof value !== 'object') {
+    return false;
+  }
+
+  const scenario = value as Partial<PackingScenario>;
+
+  return (
+    typeof scenario.id === 'string' &&
+    typeof scenario.name === 'string' &&
+    typeof scenario.description === 'string' &&
+    Array.isArray(scenario.items) &&
+    scenario.items.every(isPackingItem)
+  );
+}
+
+function isPackingItem(value: unknown): value is PackingItem {
+  if (!value || typeof value !== 'object') {
+    return false;
+  }
+
+  const item = value as Partial<PackingItem>;
+
+  return (
+    typeof item.id === 'string' &&
+    typeof item.name === 'string' &&
+    typeof item.category === 'string' &&
+    typeof item.quantity === 'number' &&
+    typeof item.isRequired === 'boolean' &&
+    typeof item.isPacked === 'boolean' &&
+    (item.note === undefined || typeof item.note === 'string')
+  );
+}
+
 function getScenarioIcon(scenarioId: string) {
   switch (scenarioId) {
-    case 'hotel-stay':
-      return '⌂';
-    case 'date-night':
-      return '♡';
-    case 'short-trip':
-      return '✈';
+    case 'exam':
+      return '✓';
     case 'business-trip':
       return '▣';
-    case 'gym-session':
-      return '✦';
+    case 'travel':
+      return '✈';
+    case 'concert':
+      return '♪';
     default:
       return '◇';
   }
