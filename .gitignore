@@ -35,7 +35,11 @@ yarn-error.*
 
 # local tooling
 .codex/
+
+# VSCode
 .vscode/
+*.code-workspace
+.history/
 
 # typescript
 *.tsbuildinfo
